@@ -6,8 +6,7 @@
   "scripts": {
     "server": "nodemon backend/server.js",
     "client": "npm run dev --prefix frontend",
-    "latest": "npm run build --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run latest\""
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Minesh Tandel",
   "license": "MIT",
