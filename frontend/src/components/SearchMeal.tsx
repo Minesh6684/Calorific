@@ -3,6 +3,8 @@ import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../app/store";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../features/authentication/AuthenticationSlice";
+import MealCard from "./MealCard";
+import AddMealModel from "./AddMealModel";
 
 interface ItemSuggestion {
   item: string;
@@ -40,6 +42,8 @@ const SearchMeal: React.FC = () => {
   const [nutritionalFacts, setNutritionalFacts] = useState<NutritionalFacts[]>(
     []
   );
+  const [isAddMealModel, setIsAddMealModel] = useState(false);
+  const [mealData, setMealData] = useState<NutritionalFacts>();
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -62,6 +66,11 @@ const SearchMeal: React.FC = () => {
 
     getItemSuggestions();
 
+    const storedNutritionalFacts = localStorage.getItem("nutritionalFacts");
+    if (storedNutritionalFacts) {
+      setNutritionalFacts(JSON.parse(storedNutritionalFacts));
+    }
+
     if (!user?.token) {
       navigate("/");
     }
@@ -78,10 +87,41 @@ const SearchMeal: React.FC = () => {
 
       const nutrition: NutritionalFacts = response.data;
       setNutritionalFacts([...nutritionalFacts, nutrition]);
-      console.log(nutritionalFacts);
+
+      // Save nutritionalFacts to localStorage
+      localStorage.setItem(
+        "nutritionalFacts",
+        JSON.stringify([...nutritionalFacts, nutrition])
+      );
     } catch (error) {
       console.error("Error fetching nutritional facts:", error);
     }
+
+    try {
+      console.log("Adding item suggestion");
+      const response = await axios.post(
+        `http://localhost:5004/item-suggestions/add/`,
+        {
+          item: itemName,
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.error("Error fetching nutritional facts:", error);
+    }
+  };
+
+  const removeCard = (index: number) => {
+    // Create a copy of the nutritionalFacts array without the specified card
+    const updatedNutritionalFacts = [...nutritionalFacts];
+    updatedNutritionalFacts.splice(index, 1);
+
+    // Update state and localStorage
+    setNutritionalFacts(updatedNutritionalFacts);
+    localStorage.setItem(
+      "nutritionalFacts",
+      JSON.stringify(updatedNutritionalFacts)
+    );
   };
 
   const logoutFrom = () => {
@@ -91,47 +131,52 @@ const SearchMeal: React.FC = () => {
 
   return (
     <div>
-      <div>
-        <p>{user?.name}</p>
-      </div>
-      <form onSubmit={getNutritionalFacts}>
-        <input
-          type="text"
-          value={itemName}
-          onChange={(e) => setItemName(e.target.value)}
-          list="suggestions"
-        />
-        <datalist id="suggestions">
-          {itemSuggestions.map((suggestion, index) => (
-            <option key={index} value={suggestion} />
-          ))}
-        </datalist>
-        <input
-          type="number"
-          required
-          value={itemAmount}
-          onChange={(e) => setItemAmount(Number(e.target.value))}
-        />
-        <button type="submit">GO</button>
-      </form>
-      <div>
-        {nutritionalFacts &&
-          nutritionalFacts.map((meal, index) => (
-            <div key={index}>
-              <p>{meal.food_item}</p>
-              <p>{meal.serving_size}</p>
-              <p>Calories: {meal.nutrition_facts.calories}</p>
-              <p>
-                Carbs:{" "}
-                {meal.nutrition_facts.nutrients.macronutrients.carbohydrates}
-              </p>
-              <p>
-                Protein: {meal.nutrition_facts.nutrients.macronutrients.protein}
-              </p>
+      {!isAddMealModel ? (
+        <div>
+          <div>
+            <p>{user?.name}</p>
+          </div>
+          <form onSubmit={getNutritionalFacts}>
+            <input
+              type="text"
+              value={itemName}
+              onChange={(e) => setItemName(e.target.value)}
+              list="suggestions"
+            />
+            <datalist id="suggestions">
+              {itemSuggestions.map((suggestion, index) => (
+                <option key={index} value={suggestion} />
+              ))}
+            </datalist>
+            <input
+              type="number"
+              required
+              value={itemAmount}
+              onChange={(e) => setItemAmount(Number(e.target.value))}
+            />
+            <button type="submit">GO</button>
+          </form>
+          <div>
+            <div>
+              {nutritionalFacts.map((meal, index) => (
+                <MealCard
+                  key={index}
+                  {...meal}
+                  onDiscard={() => removeCard(index)}
+                  setIsAddMealModel={setIsAddMealModel}
+                  setMealData={setMealData}
+                />
+              ))}
             </div>
-          ))}
-      </div>
-      <button onClick={logoutFrom}>Logout</button>
+          </div>
+          <button onClick={logoutFrom}>Logout</button>
+        </div>
+      ) : (
+        <AddMealModel
+          {...mealData}
+          setIsAddMealModel={setIsAddMealModel}
+        />
+      )}
     </div>
   );
 };

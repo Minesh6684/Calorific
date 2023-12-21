@@ -10,10 +10,6 @@ const getNutritionalFacts = async (req, res) => {
   const itemName = req.query.item;
   const amount = req.query.amount;
 
-  // Assuming you have a Mongoose model named ItemSuggestion
-  const newItem = new ItemSuggestion({ item: itemName });
-  await newItem.save();
-
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: [

@@ -1,13 +1,16 @@
 const ItemSuggestion = require("../models/ItemSuggestions");
 
 const AddItemSuggestions = async (req, res) => {
+  const item = req.body.item;
+  const existingItem = await ItemSuggestion.find({ item: item });
   try {
-    const item = req.body.item;
     // Assuming you have a Mongoose model named ItemSuggestion
-    const newItem = new ItemSuggestion({ item: item });
-    await newItem.save();
-
-    res.status(201).json({ success: true, data: newItem });
+    if (existingItem.length === 0) {
+      const newItem = new ItemSuggestion({ item: item });
+      await newItem.save();
+      
+      res.status(201).json({ success: true, data: newItem });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: "Internal Server Error" });
