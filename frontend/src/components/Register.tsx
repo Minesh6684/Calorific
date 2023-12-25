@@ -38,7 +38,7 @@ const Register = () => {
     // Perform registration logic here (e.g., send data to a server)
     try {
       const response = await axios.post<UserDataFromServer>(
-        "http://localhost:5004/authentication/register",
+        "/authentication/register",
         {
           name: name,
           email: email,

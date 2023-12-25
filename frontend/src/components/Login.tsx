@@ -31,7 +31,7 @@ const Login = () => {
     try {
       // Example: Send login request to the server
       const response = await axios.get<UserDataFromServer>(
-        `http://localhost:5004/authentication/login?email=${email}&password=${password}`
+        `/authentication/login?email=${email}&password=${password}`
       );
 
       if (response.status === 200) {
