@@ -1,3 +1,4 @@
+import { useState } from "react";
 import axios from "axios";
 import { useAppSelector } from "../app/store";
 
@@ -26,17 +27,24 @@ interface NutritionalFacts {
   };
 }
 
-interface AddMealModelProps extends Partial<NutritionalFacts> {
+interface AddMealModelProps {
+  nutritionalFacts: NutritionalFacts[];
   setIsAddMealModel: (close: boolean) => void;
 }
 
-const AddMealModel: React.FC<AddMealModelProps> = (props) => {
-  const mealData = props;
+const AddMealModel: React.FC<AddMealModelProps> = ({
+  nutritionalFacts,
+  setIsAddMealModel,
+}) => {
   const closeModel = () => {
-    props.setIsAddMealModel(false);
+    setIsAddMealModel(false);
   };
 
+  const [mealDate, setMealDate] = useState<string>("");
+  const [mealTime, setMealTime] = useState<string>("");
+
   const user = useAppSelector((state) => state.Authentication.user);
+
   const addToHistory = async () => {
     const config = {
       headers: {
@@ -44,9 +52,19 @@ const AddMealModel: React.FC<AddMealModelProps> = (props) => {
         "Content-Type": "application/json",
       },
     };
+
     try {
-      console.log("adding meal");
-      const response = await axios.post("/history/add", mealData, config);
+      console.log("Adding meal to history");
+      // Assuming you want to add all meals in the nutritionalFacts array
+      const response = await axios.post(
+        "/history/add",
+        {
+          items: nutritionalFacts,
+          consumption_time: `${mealDate} ${mealTime}`,
+        },
+        config
+      );
+
       console.log(response.data);
     } catch (error) {
       console.error("Error adding meal to history:", error);
@@ -56,12 +74,25 @@ const AddMealModel: React.FC<AddMealModelProps> = (props) => {
   return (
     <div>
       {/* <button onClick={closeModel}>X</button> */}
-      <p>{mealData.food_item}</p>
-      <p>{mealData.serving_size}</p>
-      <input type="date" />
-      <input type="time" />
+      {nutritionalFacts.map((item) => (
+        <span>
+          {item.food_item}({item.serving_size}),{" "}
+        </span>
+      ))}
+      {/* Additional components to display information */}
+      <input
+        type="date"
+        value={mealDate}
+        onChange={(e) => setMealDate(e.target.value)}
+      />
+      <input
+        type="time"
+        value={mealTime}
+        onChange={(e) => setMealTime(e.target.value)}
+      />
+
       <p>
-        Are you sure you want to save the meal?{" "}
+        Are you sure you want to save the meals?{" "}
         <button onClick={addToHistory}>YES</button>
         <button onClick={closeModel}>NO</button>
       </p>

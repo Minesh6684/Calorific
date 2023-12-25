@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../app/store";
 import { register } from "../features/authentication/AuthenticationSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 interface UserDataFromServer {
   name: string;
@@ -104,6 +104,9 @@ const Register = () => {
         <br />
         <button type="submit">Register</button>
       </form>
+      <p>
+        Already have an account? <Link to="/">Login</Link>
+      </p>
     </div>
   );
 };

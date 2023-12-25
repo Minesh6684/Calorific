@@ -1,4 +1,3 @@
-const protect = require("../middlewares/protect");
 const History = require("../models/History");
 const User = require("../models/User");
 
@@ -18,6 +17,7 @@ const getHistory = async (req, res) => {
   const user = await User.findById(req.user._id);
   if (user) {
     const history = await History.find({ user: user._id });
+    console.log(history);
     res.status(200).json(history);
   } else {
     res.status(400).json({ Message: "User Not found" });

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../app/store";
 import { login } from "../features/authentication/AuthenticationSlice";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface UserDataFromServer {
   name: string;
@@ -69,6 +70,9 @@ const Login = () => {
         <br />
         <button type="submit">Login</button>
       </form>
+      <p>
+        Don't have an account? <Link to="/register">Register</Link>
+      </p>
     </div>
   );
 };

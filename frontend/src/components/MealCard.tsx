@@ -1,5 +1,4 @@
 import React from "react";
-import { IoMdAdd } from "react-icons/io";
 
 interface NutritionalFacts {
   food_item: string;
@@ -29,14 +28,14 @@ interface NutritionalFacts {
 interface MealCardProps extends NutritionalFacts {
   onDiscard: () => void;
   setIsAddMealModel: (close: boolean) => void;
-  setMealData: (nutritionalFacts: NutritionalFacts) => void;
+  // setMealData: (nutritionalFacts: NutritionalFacts) => void;
 }
 
 const MealCard: React.FC<MealCardProps> = (props) => {
-  const MealData = props;
+  // const MealData = props;
   const { /* ... */ onDiscard } = props;
-  const { setIsAddMealModel } = props;
-  const { setMealData } = props;
+  // const { setIsAddMealModel } = props;
+  // const { setMealData } = props;
 
   const {
     food_item,
@@ -59,18 +58,12 @@ const MealCard: React.FC<MealCardProps> = (props) => {
     },
   } = props;
 
-  const addToHistory = async () => {
-    setIsAddMealModel(true);
-    setMealData(MealData);
-  };
-
   const handleDiscard = () => {
     onDiscard();
   };
 
   return (
     <div className="meal-card">
-      <IoMdAdd onClick={addToHistory} />
       <button onClick={handleDiscard}>Discard</button>
       <div className="meal-info">
         <h2>{food_item}</h2>

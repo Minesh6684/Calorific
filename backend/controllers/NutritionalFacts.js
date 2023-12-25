@@ -9,13 +9,14 @@ const openai = new OpenAI({
 const getNutritionalFacts = async (req, res) => {
   const itemName = req.query.item;
   const amount = req.query.amount;
+  const unit = req.query.unit;
 
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: [
       {
         role: "user",
-        content: `1. Generate nutritional information in JSON format for ${itemName} based on a serving size of ${amount} grams
+        content: `1. Generate nutritional information in JSON format for ${itemName} based on a serving size of ${amount} ${unit}
            2. Include details such as calories, macronutrients (protein, carbohydrates, and fats), and include vitamins and minerals if available.
            3. Ensure that the macronutrients and micronutrients are organized within a single 'nutrients' entity.
            4. Additionally, make sure the output pattern strictly follows this structure:
@@ -43,6 +44,7 @@ const getNutritionalFacts = async (req, res) => {
               }
             }
           }
+          5. Dont mention any kind of introductory sentence please.
           `,
       },
     ],

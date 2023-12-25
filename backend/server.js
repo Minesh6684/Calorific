@@ -19,6 +19,7 @@ app.use("/authentication/", require("./routes/Authenticaiton"));
 app.use("/item-suggestions/", require("./routes/ItemSuggestions"));
 app.use("/nutritional-facts/", require("./routes/NutritionalFacts"));
 app.use("/history/", require("./routes/History"));
+app.use("/weight/", require("./routes/Weight"));
 
 // React Router routes
 if (process.env.NODE_ENV === "production") {
