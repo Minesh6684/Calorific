@@ -3,7 +3,6 @@ import axios from "axios";
 import MealCard from "./MealCard";
 import AddMealModel from "./AddMealModel";
 
-// import { IoMdAdd } from "react-icons/io";
 import { GiMeal } from "react-icons/gi";
 import { FaWeightScale } from "react-icons/fa6";
 
@@ -173,19 +172,21 @@ const MealSearchForm: React.FC = () => {
       </form>
       {!isAddMealModel ? (
         <div className="searched-meal-section">
-          <div className="meal-card-display-container">
-            {nutritionalFacts.map((meal, index) => (
-              <MealCard
-                key={index}
-                {...meal}
-                onDiscard={() => removeCard(index)}
-                setIsAddMealModel={setIsAddMealModel}
-                // setMealData={setMealData}
-              />
-            ))}
-          </div>
-          <button onClick={addToHistory}>Add as a meal</button>
-          {/* <IoMdAdd /> */}
+          {nutritionalFacts[0] && (
+            <div className="meal-card-display-container">
+              {nutritionalFacts.map((meal, index) => (
+                <MealCard
+                  key={index}
+                  {...meal}
+                  onDiscard={() => removeCard(index)}
+                  setIsAddMealModel={setIsAddMealModel}
+                />
+              ))}
+            </div>
+          )}
+          {nutritionalFacts[0] && (
+            <button onClick={addToHistory}>Add as a meal</button>
+          )}
         </div>
       ) : (
         <AddMealModel

@@ -3,6 +3,7 @@ const path = require("path");
 const dotenv = require("dotenv").config();
 const fs = require("fs");
 const colors = require("colors");
+const cors = require("cors");
 const errorHandler = require("./middlewares/errorHandler");
 const methodOverride = require("method-override");
 const { connectDB } = require("./config"); // Corrected import
@@ -12,6 +13,7 @@ const port = process.env.PORT || 5001;
 connectDB();
 
 app.use(express.json());
+app.use(cors());
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
 

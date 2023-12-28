@@ -1,4 +1,5 @@
 import React from "react";
+import "../css/HistoryMealCard.css";
 
 interface Item {
   food_item: string;
@@ -22,7 +23,7 @@ interface Item {
       vitamins?: Record<string, number>; // You can specify specific vitamin types if needed
     };
   };
-  servingSize: string;
+  serving_size: string;
 }
 
 interface NutritionData {
@@ -43,7 +44,7 @@ const HistoryMealCard: React.FC<HistoryMealCardProps> = ({ meal }) => {
       {meal.items.map((item, index) => (
         <div key={index}>
           <h3>{item.food_item}</h3>
-          <p>Serving Size: {item.servingSize}</p>
+          <p>Serving Size: {item.serving_size}</p>
           <div className="nutrient-details">
             <h4>Nutrition Facts:</h4>
             <ul>

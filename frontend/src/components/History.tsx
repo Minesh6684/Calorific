@@ -26,7 +26,7 @@ interface Item {
       vitamins?: Record<string, number>; // You can specify specific vitamin types if needed
     };
   };
-  servingSize: string;
+  serving_size: string;
 }
 
 interface NutritionData {
@@ -40,6 +40,8 @@ interface NutritionData {
 const History = () => {
   const user = useAppSelector((state) => state.Authentication.user);
   const [history, setHistory] = useState<NutritionData[]>();
+  const [mealDate, setMealDate] = useState<string>("");
+  const [selectedDateMeal, setSelectedDateMeal] = useState<NutritionData[]>();
 
   useEffect(() => {
     const config = {
@@ -54,6 +56,21 @@ const History = () => {
     };
     getDietHistory();
   }, []);
+
+  const filterMealByDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const selectedDate = e.target.value;
+    setMealDate(selectedDate);
+
+    setSelectedDateMeal(
+      history?.filter(
+        (meal) => meal.consumptionDateTime.split("T")[0] === selectedDate
+      )
+    );
+  };
+
+  console.log(history);
+
   return (
     <div>
       <button>
@@ -64,7 +81,12 @@ const History = () => {
           Dashboard
         </Link>
       </button>
-      {history?.map((meal) => (
+      <input
+        type="date"
+        value={mealDate}
+        onChange={(e) => filterMealByDate(e)}
+      />
+      {selectedDateMeal?.map((meal) => (
         <HistoryMealCard meal={meal} />
       ))}
     </div>
