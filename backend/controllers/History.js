@@ -5,6 +5,7 @@ const AddMeal = async (req, res) => {
   try {
     const mealData = req.body;
     const mealDataToAdd = { user: req.user._id, ...mealData };
+    console.log(mealDataToAdd);
     const meal = await History.create(mealDataToAdd);
     res.status(200).json(meal);
   } catch (error) {

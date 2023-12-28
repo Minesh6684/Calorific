@@ -19,9 +19,9 @@ const historySchema = new mongoose.Schema({
             carbohydrates: { type: Number, required: true },
           },
           micronutrients: {
-            cholesterol: { type: Number, required: true },
-            sodium: { type: Number, required: true },
-            potassium: { type: Number, required: true },
+            cholesterol: { type: Number },
+            sodium: { type: Number },
+            potassium: { type: Number },
           },
           vitamins: { type: Map, of: Number },
           minerals: { type: Map, of: Number },

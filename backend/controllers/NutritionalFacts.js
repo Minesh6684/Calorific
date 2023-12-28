@@ -45,6 +45,7 @@ const getNutritionalFacts = async (req, res) => {
             }
           }
           5. Dont mention any kind of introductory sentence please.
+          6. If any of the key has 0 value, mention 0 as a value of the nutrient.
           `,
       },
     ],

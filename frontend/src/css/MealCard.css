@@ -1,0 +1,119 @@
+.meal-card {
+  background-color: #ffffff;
+  min-width: 320px;
+
+  font-family: sans-serif;
+  border-radius: 5px;
+  border: 1px solid rgb(186, 184, 184);
+  position: relative;
+}
+
+.discard-button {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  z-index: 1;
+
+  font-size: 20px;
+  color: red;
+}
+
+.meal-head {
+  position: relative;
+  padding: 20px;
+}
+
+.meal-head::after,
+.meal-macros table::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0px;
+  width: 100%;
+  height: 1px;
+  background-color: rgb(186, 184, 184);
+}
+
+.meal-head > p:nth-of-type(1) {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.meal-head > p:nth-of-type(1) > span:nth-of-type(1) {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.meal-head > p:nth-of-type(1) > span:nth-of-type(2) {
+  font-size: 25px;
+}
+
+.meal-head > p:nth-of-type(2) {
+  font-size: 18px;
+}
+
+.meal-macros table {
+  width: 100%;
+  border-collapse: collapse;
+
+  position: relative;
+}
+
+.meal-macros table td {
+  text-align: center;
+  border-right: 1px solid rgb(186, 184, 184);
+  padding-top: 8px;
+}
+
+.meal-macros table td:last-child {
+  border-right: none;
+}
+
+.macro-values {
+  font-size: 20px;
+  font-weight: 600;
+  padding-bottom: 10px;
+}
+
+.meal-fat {
+  margin-top: 15px; /* Adjust the value as needed for the desired gap */
+}
+
+.meal-fat table {
+  width: 100%;
+  border-collapse: collapse;
+  padding-left: 20px; /* Adjust the value for indentation */
+}
+
+.meal-fat table th,
+.meal-fat table td {
+  padding: 8px 20px;
+  text-align: left;
+}
+
+.meal-fat table td {
+  font-weight: bold; /* Optional: Make the text bold */
+}
+
+.meal-fat table tbody {
+  padding-left: 15px;
+}
+
+.meal-fat table tbody tr:nth-child(even) {
+  background-color: #f2f2f2; /* Background color for even rows */
+}
+
+.meal-fat table thead tr th {
+  background-color: #f2f2f2;
+}
+
+.meal-fat table tbody tr td {
+  padding-left: 20px;
+  color: rgb(95, 95, 95);
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}

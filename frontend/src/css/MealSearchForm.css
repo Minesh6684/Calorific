@@ -1,0 +1,92 @@
+.meal-search-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.food-item-collection-form {
+  background-color: #ffffff;
+  border-radius: 20px;
+
+  padding: 30px;
+
+  font-size: 19px;
+  font-family: sans-serif;
+  width: fit-content;
+}
+
+.food-item-collection-form > p {
+  width: 200px;
+  word-wrap: break-word;
+
+  font-size: 18px;
+  color: #172935;
+  margin-bottom: 20px;
+}
+
+.food-item-collection-form > div {
+  border: 1px solid grey;
+  border-radius: 10px;
+
+  margin-bottom: 15px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+
+  padding: 10px;
+  width: 200px;
+}
+
+.food-item-collection-form > div > input {
+  border: none;
+  background-color: transparent;
+
+  outline: none;
+}
+
+.food-item-collection-form > select {
+  width: 40%;
+  padding: 5px;
+  margin-right: 10px;
+  border-radius: 10px;
+}
+
+.food-item-collection-form > button {
+  width: 55%;
+  padding: 5px;
+  background-color: #5b58e6;
+  color: #ffffff;
+  border-radius: 10px;
+
+  border: none;
+  font-size: 15px;
+}
+
+.searched-meal-section {
+  background-color: #ffffff;
+  padding: 20px;
+
+  overflow: scroll;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.meal-card-display-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.searched-meal-section > button {
+  width: 200px;
+  border: none;
+  background-color: #5b58e6;
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px;
+  color: #ffffff;
+}

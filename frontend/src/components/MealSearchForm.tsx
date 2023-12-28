@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import MealCard from "./MealCard";
 import AddMealModel from "./AddMealModel";
-import { IoMdAdd } from "react-icons/io";
+
+// import { IoMdAdd } from "react-icons/io";
+import { GiMeal } from "react-icons/gi";
+import { FaWeightScale } from "react-icons/fa6";
+
+import "../css/MealSearchForm.css";
 
 interface ItemSuggestion {
   item: string;
@@ -38,7 +43,7 @@ const MealSearchForm: React.FC = () => {
   const [itemAmount, setItemAmount] = useState<number>();
   const [itemUnit, setItemUnit] = useState<string>();
   const [itemSuggestions, setItemSuggestions] = useState<string[]>([]);
-//   const [mealData, setMealData] = useState<NutritionalFacts>();
+  //   const [mealData, setMealData] = useState<NutritionalFacts>();
   const [isAddMealModel, setIsAddMealModel] = useState(false);
   const [nutritionalFacts, setNutritionalFacts] = useState<NutritionalFacts[]>(
     []
@@ -121,42 +126,54 @@ const MealSearchForm: React.FC = () => {
   };
 
   return (
-    <div>
-      {!isAddMealModel ? (
+    <div className="meal-search-form-container">
+      <form
+        onSubmit={getNutritionalFacts}
+        className="food-item-collection-form"
+      >
+        <p>Enter a food item to find its nutritional values.</p>
         <div>
-          <form onSubmit={getNutritionalFacts}>
-            <input
-              type="text"
-              value={itemName}
-              onChange={(e) => setItemName(e.target.value)}
-              list="suggestions"
-            />
-            <datalist id="suggestions">
-              {itemSuggestions.map((suggestion, index) => (
-                <option key={index} value={suggestion} />
-              ))}
-            </datalist>
-            <input
-              type="number"
-              required
-              value={itemAmount}
-              onChange={(e) => setItemAmount(Number(e.target.value))}
-            />
-            <select
-              id="foodUnit"
-              name="unit"
-              onChange={(e) => setItemUnit(e.target.value)}
-              required
-            >
-              <option value="" disabled selected hidden>
-                Choose Unit
-              </option>
-              <option value="grams">Grams</option>
-              <option value="milliliters">Milliliters</option>
-            </select>
-            <button type="submit">GO</button>
-          </form>
-          <div>
+          <GiMeal style={{ fontSize: "24px" }} />
+          <input
+            type="text"
+            value={itemName}
+            onChange={(e) => setItemName(e.target.value)}
+            list="suggestions"
+            placeholder="Enter item name"
+          />
+          <datalist id="suggestions">
+            {itemSuggestions.map((suggestion, index) => (
+              <option key={index} value={suggestion} />
+            ))}
+          </datalist>
+        </div>
+        <div>
+          <FaWeightScale style={{ fontSize: "24px" }} />
+          <input
+            type="number"
+            required
+            value={itemAmount}
+            onChange={(e) => setItemAmount(Number(e.target.value))}
+            placeholder="Enter quantity"
+          />
+        </div>
+        <select
+          id="foodUnit"
+          name="unit"
+          onChange={(e) => setItemUnit(e.target.value)}
+          required
+        >
+          <option value="" disabled selected hidden>
+            Unit
+          </option>
+          <option value="grams">gm</option>
+          <option value="milliliters">ml</option>
+        </select>
+        <button type="submit">GO</button>
+      </form>
+      {!isAddMealModel ? (
+        <div className="searched-meal-section">
+          <div className="meal-card-display-container">
             {nutritionalFacts.map((meal, index) => (
               <MealCard
                 key={index}
@@ -167,11 +184,14 @@ const MealSearchForm: React.FC = () => {
               />
             ))}
           </div>
-
-          <IoMdAdd onClick={addToHistory} />
+          <button onClick={addToHistory}>Add as a meal</button>
+          {/* <IoMdAdd /> */}
         </div>
       ) : (
-        <AddMealModel nutritionalFacts={nutritionalFacts} setIsAddMealModel={setIsAddMealModel} />
+        <AddMealModel
+          nutritionalFacts={nutritionalFacts}
+          setIsAddMealModel={setIsAddMealModel}
+        />
       )}
     </div>
   );

@@ -1,4 +1,6 @@
 import React from "react";
+import { MdCancel } from "react-icons/md";
+import "../css/MealCard.css";
 
 interface NutritionalFacts {
   food_item: string;
@@ -64,42 +66,131 @@ const MealCard: React.FC<MealCardProps> = (props) => {
 
   return (
     <div className="meal-card">
-      <button onClick={handleDiscard}>Discard</button>
+      <MdCancel onClick={handleDiscard} className="discard-button" />
       <div className="meal-info">
-        <h2>{food_item}</h2>
-        <p>Serving Size: {serving_size}</p>
-        <p>Calories: {calories}</p>
-        <h3>Macronutrients</h3>
-        <ul>
-          <li>Protein: {protein}g</li>
-          <li>Total Fat: {total_fat}g</li>
-          <li>Saturated Fat: {saturated_fat}g</li>
-          <li>Monounsaturated Fat: {monounsaturated_fat}g</li>
-          <li>Polyunsaturated Fat: {polyunsaturated_fat}g</li>
-          <li>Carbohydrates: {carbohydrates}g</li>
-        </ul>
-        <h3>Micronutrients</h3>
-        <ul>
-          <li>Cholesterol: {cholesterol}mg</li>
-          <li>Sodium: {sodium}mg</li>
-          <li>Potassium: {potassium}mg</li>
-        </ul>
-        <h3>Vitamins</h3>
-        <ul>
-          {Object.entries(vitamins).map(([vitamin, value]) => (
-            <li key={vitamin}>
-              {vitamin}: {value}mg
-            </li>
-          ))}
-        </ul>
-        <h3>Minerals</h3>
-        <ul>
-          {Object.entries(minerals).map(([mineral, value]) => (
-            <li key={mineral}>
-              {mineral}: {value}mg
-            </li>
-          ))}
-        </ul>
+        <div className="meal-head">
+          <p>
+            <span>{food_item}</span>
+            <span>
+              {serving_size.split(" ")[0]}
+              {serving_size.split(" ")[1] === "grams" ? "g" : "ml"}
+            </span>
+          </p>
+          <p>Calories {calories}</p>
+        </div>
+        <div className="meal-macros">
+          <table>
+            <thead>
+              <tr>
+                <td>Carbs</td>
+                <td>Protein</td>
+                <td>Fat</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="macro-values">{carbohydrates}g</td>
+                <td className="macro-values">{protein}g</td>
+                <td className="macro-values">{total_fat}g</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div className="meal-fat">
+          <table>
+            <thead>
+              <tr>
+                <th>Total fat</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span>Saturated Fat</span> {saturated_fat}g
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span>Monounsaturated Fat</span> {monounsaturated_fat}g
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span>Polyunsaturated Fat</span> {polyunsaturated_fat}g
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div className="meal-fat">
+          <table>
+            <thead>
+              <tr>
+                <th>Micronutrients</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span>Cholesterol </span>
+                  {cholesterol}mg
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span>Sodium </span>
+                  {sodium}mg
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span>Potassium</span> {potassium}mg
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        {Object.keys(vitamins).length !== 0 && (
+          <div className="meal-vitamins">
+            <table>
+              <thead>
+                <tr>
+                  <th>Vitamins</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(vitamins).map(([vitamin, value]) => (
+                  <tr>
+                    <td>
+                      {vitamin}: {value}mg
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {Object.keys(minerals).length !== 0 && (
+          <div className="meal-minerals">
+            <table>
+              <thead>
+                <tr>
+                  <th>Minerals</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(minerals).map(([mineral, value]) => (
+                  <tr>
+                    <td>
+                      {mineral}: {value}mg
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );
