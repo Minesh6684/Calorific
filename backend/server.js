@@ -24,26 +24,26 @@ app.use("/history/", require("./routes/History"));
 app.use("/weight/", require("./routes/Weight"));
 
 // React Router routes
-if (process.env.NODE_ENV === "production") {
-  app.use(
-    express.static(path.resolve(__dirname, "../", "frontend", "dist"), {
-      setHeaders: (res, path, stat) => {
-        if (path.endsWith(".js")) {
-          res.type("application/javascript");
-        }
-      },
-    })
-  );
+// if (process.env.NODE_ENV === "production") {
+//   app.use(
+//     express.static(path.resolve(__dirname, "../", "frontend", "dist"), {
+//       setHeaders: (res, path, stat) => {
+//         if (path.endsWith(".js")) {
+//           res.type("application/javascript");
+//         }
+//       },
+//     })
+//   );
 
-  // Handle React Router routes
-  app.get("*", (req, res) => {
-    res.sendFile(
-      path.resolve(__dirname, "../", "frontend", "dist", "index.html")
-    );
-  });
-} else {
-  app.get("/", (req, res) => res.send("Please Activate Production"));
-}
+// Handle React Router routes
+//   app.get("*", (req, res) => {
+//     res.sendFile(
+//       path.resolve(__dirname, "../", "frontend", "dist", "index.html")
+//     );
+//   });
+// } else {
+//   app.get("/", (req, res) => res.send("Please Activate Production"));
+// }
 
 app.use(errorHandler);
 app.listen(port, console.log(`Server running on port: ${port}`));
