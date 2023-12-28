@@ -5,6 +5,8 @@ import { login } from "../features/authentication/AuthenticationSlice";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
+axios.defaults.baseURL = "https://calorific.vercel.app";
+
 interface UserDataFromServer {
   name: string;
   token: string;
@@ -31,7 +33,10 @@ const Login = () => {
     try {
       // Example: Send login request to the server
       const response = await axios.get<UserDataFromServer>(
-        `/authentication/login?email=${email}&password=${password}`
+        "/authentication/login",
+        {
+          params: { email, password },
+        }
       );
 
       if (response.status === 200) {
