@@ -8,11 +8,11 @@ interface Item {
     nutrients: {
       macronutrients: {
         carbohydrates: number;
-        monounsaturatedFat: number;
-        polyunsaturatedFat: number;
+        monounsaturated_fat: number;
+        polyunsaturated_fat: number;
         protein: number;
-        saturatedFat: number;
-        totalFat: number;
+        saturated_fat: number;
+        total_fat: number;
       };
       micronutrients: {
         cholesterol: number;
@@ -39,65 +39,68 @@ interface HistoryMealCardProps {
 }
 
 const HistoryMealCard: React.FC<HistoryMealCardProps> = ({ meal }) => {
+  const total_calories = Object.values(meal.items).reduce(
+    (total, item) => total + item.nutrition_facts.calories,
+    0
+  );
+
+  const total_carbs = Object.values(meal.items).reduce(
+    (total, item) =>
+      total + item.nutrition_facts.nutrients.macronutrients.carbohydrates,
+    0
+  );
+
+  const total_protein = Object.values(meal.items).reduce(
+    (total, item) =>
+      total + item.nutrition_facts.nutrients.macronutrients.protein,
+    0
+  );
+
+  const total_fat = Object.values(meal.items).reduce(
+    (total, item) =>
+      total + item.nutrition_facts.nutrients.macronutrients.total_fat,
+    0
+  );
   return (
-    <div key={meal._id} className="meal-card">
-      {meal.items.map((item, index) => (
-        <div key={index}>
-          <h3>{item.food_item}</h3>
-          <p>Serving Size: {item.serving_size}</p>
-          <div className="nutrient-details">
-            <h4>Nutrition Facts:</h4>
-            <ul>
-              <li>Calories: {item.nutrition_facts.calories}</li>
-              <li>
-                Protein: {item.nutrition_facts.nutrients.macronutrients.protein}
-                g
-              </li>
-              <li>
-                Carbohydrates:{" "}
-                {item.nutrition_facts.nutrients.macronutrients.carbohydrates}g
-              </li>
-              <li>
-                Fat: {item.nutrition_facts.nutrients.macronutrients.totalFat}g
-              </li>
-              <li>
-                Saturated Fat:{" "}
-                {item.nutrition_facts.nutrients.macronutrients.saturatedFat}g
-              </li>
-              <li>
-                Monounsaturated Fat:{" "}
-                {
-                  item.nutrition_facts.nutrients.macronutrients
-                    .monounsaturatedFat
-                }
-                g
-              </li>
-              <li>
-                Polyunsaturated Fat:{" "}
-                {
-                  item.nutrition_facts.nutrients.macronutrients
-                    .polyunsaturatedFat
-                }
-                g
-              </li>
-              <li>
-                Cholesterol:{" "}
-                {item.nutrition_facts.nutrients.micronutrients.cholesterol}mg
-              </li>
-              <li>
-                Potassium:{" "}
-                {item.nutrition_facts.nutrients.micronutrients.potassium}
-                mg
-              </li>
-              <li>
-                Sodium: {item.nutrition_facts.nutrients.micronutrients.sodium}mg
-              </li>
-              {/* Add other nutrients as needed */}
-            </ul>
-          </div>
+    <div key={meal._id} className="history-meal-card">
+      <div className="history-meal-details">
+        <div className="history-item-list">
+          {meal.items.map((item, index) => (
+            <p key={index} className="history-item">
+              <span className="history-food-item">{item.food_item}</span>
+              <span className="history-serving-size">
+                {item.serving_size.split(" ")[0]}
+                {item.serving_size.split(" ")[1] === "grams" ? "g" : "ml"}
+              </span>
+            </p>
+          ))}
         </div>
-      ))}
-      <p>Consumed on: {meal.consumptionDateTime}</p>
+        <div className="history-totals">
+          <p className="history-total-calories">
+            <span className="history-label">Calories</span>
+            <span className="history-value">{total_calories}</span>
+          </p>
+        </div>
+      </div>
+      <div className="history-macronutrients">
+        <p className="history-carbs">
+          <span className="history-label">Carbs</span>
+          <span className="history-value">{total_carbs}</span>
+        </p>
+        <p className="history-protein">
+          <span className="history-label">Protein</span>
+          <span className="history-value">{total_protein}</span>
+        </p>
+        <p className="history-fat">
+          <span className="history-label">Fat</span>
+          <span className="history-value">{total_fat}</span>
+        </p>
+      </div>
+      <p className="history-consumption-date">
+        <p className="history-consumption-date">
+          Consumed on: {meal.consumptionDateTime.slice(11, 16)}
+        </p>
+      </p>
     </div>
   );
 };

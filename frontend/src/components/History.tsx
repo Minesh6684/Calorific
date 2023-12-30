@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useAppSelector } from "../app/store";
 import axios from "axios";
 import HistoryMealCard from "../components/HistoryMealCard";
-import { Link } from "react-router-dom";
 
 interface Item {
   food_item: string;
@@ -11,11 +10,11 @@ interface Item {
     nutrients: {
       macronutrients: {
         carbohydrates: number;
-        monounsaturatedFat: number;
-        polyunsaturatedFat: number;
+        monounsaturated_fat: number;
+        polyunsaturated_fat: number;
         protein: number;
-        saturatedFat: number;
-        totalFat: number;
+        saturated_fat: number;
+        total_fat: number;
       };
       micronutrients: {
         cholesterol: number;
@@ -40,7 +39,9 @@ interface NutritionData {
 const History = () => {
   const user = useAppSelector((state) => state.Authentication.user);
   const [history, setHistory] = useState<NutritionData[]>();
-  const [mealDate, setMealDate] = useState<string>("");
+  const [mealDate, setMealDate] = useState<string>(
+    new Date().getDate().toString()
+  );
   const [selectedDateMeal, setSelectedDateMeal] = useState<NutritionData[]>();
 
   useEffect(() => {
@@ -60,7 +61,10 @@ const History = () => {
   const filterMealByDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const selectedDate = e.target.value;
-    setMealDate(selectedDate);
+    const formattedSelectedDate = new Date(selectedDate)
+      .toISOString()
+      .split("T")[0];
+    setMealDate(formattedSelectedDate);
 
     setSelectedDateMeal(
       history?.filter(
@@ -69,26 +73,19 @@ const History = () => {
     );
   };
 
-  console.log(history);
-
   return (
-    <div>
-      <button>
-        <Link
-          to="/dashboard"
-          style={{ color: "black", textDecoration: "none" }}
-        >
-          Dashboard
-        </Link>
-      </button>
+    <div className="history-container">
       <input
         type="date"
         value={mealDate}
         onChange={(e) => filterMealByDate(e)}
+        className="history-meal-filter"
       />
-      {selectedDateMeal?.map((meal) => (
-        <HistoryMealCard meal={meal} />
-      ))}
+      <div className="history-meal-cards-container">
+        {selectedDateMeal?.map((meal) => (
+          <HistoryMealCard meal={meal} />
+        ))}
+      </div>
     </div>
   );
 };

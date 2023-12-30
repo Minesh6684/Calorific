@@ -1,0 +1,116 @@
+.history-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.history-meal-filter {
+  padding: 7px;
+  font-size: 15px;
+  border-radius: 10px;
+  width: 200px;
+
+  color: #5855e3;
+  background-color: #ffffff;
+}
+
+.history-meal-cards-container {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 30px;
+
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+
+  overflow: scroll;
+}
+
+.history-meal-card {
+  font-family: sans-serif;
+  background-color: #ffffff;
+  border-radius: 10px;
+  width: 300px;
+  border: 1px solid rgb(186, 184, 184);
+}
+
+.history-meal-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding: 20px;
+}
+
+.history-item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.history-item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+
+  justify-content: space-between;
+}
+
+.history-food-item {
+  margin-right: 10px;
+}
+
+.history-totals {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.history-total-calories {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+
+  gap: 10px;
+}
+
+.history-value {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.history-macronutrients {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  gap: 15px;
+  border-top: 1px solid rgb(186, 184, 184);
+  border-bottom: 1px solid rgb(186, 184, 184);
+}
+
+.history-carbs,
+.history-protein,
+.history-fat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  position: relative;
+  width: 33%;
+  padding: 10px 0;
+}
+
+.history-carbs,
+.history-protein {
+  border-right: 1px solid rgb(186, 184, 184);
+}
+
+.history-consumption-date {
+  padding: 10px;
+}
