@@ -53,8 +53,26 @@ const SearchMeal: React.FC = () => {
     dispatch(logout());
   };
 
+  const displayNav = () => {
+    const navigation = document.querySelector(".dashboard-nav");
+    const mobile = document.querySelector(".dashboard-nav-mobile");
+
+    if (navigation) {
+      navigation.classList.add("dashboard-nav-mobile");
+      navigation.classList.remove("dashboard-nav");
+    } else if (mobile) {
+      mobile.classList.add("dashboard-nav");
+      mobile.classList.remove("dashboard-nav-mobile");
+    } else {
+      console.error("Element with class 'dashboard-nav' not found.");
+    }
+  };
+
   return (
     <div className="dashboard">
+      <div className="mobile-navbar">
+        <p onClick={displayNav}>Calorific</p>
+      </div>
       <div className="dashboard-nav">
         <div className="dashboard-greeting-section">
           <p>Welcome Back, {user?.name}</p>
@@ -76,7 +94,6 @@ const SearchMeal: React.FC = () => {
         </div>
         <div className="logout-section">
           <button onClick={logoutFrom}>
-            {" "}
             <BiLogOut />
             <span>Logout</span>
           </button>

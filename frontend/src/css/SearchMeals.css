@@ -4,7 +4,12 @@
   box-sizing: border-box;
 }
 
+.mobile-navbar {
+  display: none;
+}
+
 .dashboard {
+  /* position: relative; */
   display: grid;
   grid-template-columns: 2fr 8fr;
   grid-template-rows: 1fr;
@@ -99,4 +104,41 @@
 
 .logout-section > button > span {
   font-weight: 100;
+}
+
+@media only screen and (max-width: 600px) {
+  .dashboard {
+    display: block;
+  }
+
+  .mobile-navbar {
+    font-family: "Chewy", cursive;
+    background-color: #f8f8f8;
+    color: #5855e3;
+    font-size: 22px;
+    display: block;
+    height: 5vh;
+    padding: 10px;
+  }
+
+  .dashboard-nav {
+    position: absolute;
+    z-index: 1;
+    left: -120%;
+    transition: left 1s;
+    height: 100vh;
+
+    background-color: #ffffff;
+    overflow: hidden;
+  }
+
+  .dashboard-nav-mobile {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    transition: left 1s;
+
+    height: 95vh;
+    background-color: #ffffff;
+  }
 }
