@@ -33,7 +33,7 @@ const Login = () => {
     try {
       // Example: Send login request to the server
       const response = await axios.get<UserDataFromServer>(
-        "/authentication/login",
+        "http://localhost:5004/authentication/login",
         {
           params: { email, password },
         }
