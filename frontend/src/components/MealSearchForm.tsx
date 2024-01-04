@@ -69,7 +69,7 @@ const MealSearchForm: React.FC = () => {
     };
 
     getItemSuggestions();
-  });
+  }, []);
 
   const getNutritionalFacts = async (e: React.FormEvent) => {
     e.preventDefault();
