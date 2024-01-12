@@ -141,4 +141,8 @@
     height: 95vh;
     background-color: #ffffff;
   }
+
+  .display-section {
+    padding: 0px;
+  }
 }

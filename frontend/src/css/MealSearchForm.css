@@ -92,3 +92,18 @@
 
   margin: 0 20px 20px 20px;
 }
+
+@media only screen and (max-width: 600px) {
+  .meal-card-display-container {
+    flex-direction: column;
+  }
+
+  .food-item-collection-form {
+    width: 95%;
+    margin: 20px auto;
+  }
+
+  .food-item-collection-form > div {
+    width: 100%;
+  }
+}

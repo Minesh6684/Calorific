@@ -114,3 +114,9 @@
 .history-consumption-date {
   padding: 10px;
 }
+
+@media only screen and (max-width: 600px) {
+  .history-meal-cards-container {
+    flex-direction: column;
+  }
+}

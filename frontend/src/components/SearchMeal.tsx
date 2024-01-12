@@ -27,32 +27,6 @@ const SearchMeal: React.FC = () => {
     }
   }, [user, navigate]);
 
-  const showMealSearchForm = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsHistory(false);
-    setIsWeightTracker(false);
-    setIsMealSearchForm(!isMealSearchForm);
-  };
-
-  const showHistory = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsWeightTracker(false);
-    setIsMealSearchForm(false);
-    setIsHistory(!isHistory);
-  };
-
-  const showWeightTracker = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsHistory(false);
-    setIsMealSearchForm(false);
-    setIsWeightTracker(!isWeightTracker);
-  };
-
-  const logoutFrom = () => {
-    localStorage.removeItem("user");
-    dispatch(logout());
-  };
-
   const displayNav = () => {
     const navigation = document.querySelector(".dashboard-nav");
     const mobile = document.querySelector(".dashboard-nav-mobile");
@@ -66,6 +40,32 @@ const SearchMeal: React.FC = () => {
     } else {
       console.error("Element with class 'dashboard-nav' not found.");
     }
+  };
+
+  const showMealSearchForm = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsHistory(false);
+    setIsWeightTracker(false);
+    setIsMealSearchForm(true);
+  };
+
+  const showHistory = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsWeightTracker(false);
+    setIsMealSearchForm(false);
+    setIsHistory(true);
+  };
+
+  const showWeightTracker = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsHistory(false);
+    setIsMealSearchForm(false);
+    setIsWeightTracker(true);
+  };
+
+  const logoutFrom = () => {
+    localStorage.removeItem("user");
+    dispatch(logout());
   };
 
   return (
