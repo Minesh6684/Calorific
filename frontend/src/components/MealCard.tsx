@@ -34,11 +34,7 @@ interface MealCardProps extends NutritionalFacts {
 }
 
 const MealCard: React.FC<MealCardProps> = (props) => {
-  // const MealData = props;
   const { /* ... */ onDiscard } = props;
-  // const { setIsAddMealModel } = props;
-  // const { setMealData } = props;
-
   const {
     food_item,
     serving_size,

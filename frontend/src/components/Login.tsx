@@ -5,8 +5,6 @@ import { login } from "../features/authentication/AuthenticationSlice";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-// axios.defaults.baseURL = "https://calorific-api.vercel.app/";
-
 interface UserDataFromServer {
   name: string;
   token: string;

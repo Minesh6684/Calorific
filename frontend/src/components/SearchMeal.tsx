@@ -27,16 +27,22 @@ const SearchMeal: React.FC = () => {
     }
   }, [user, navigate]);
 
+  const removeNav = () => {
+    const mobile = document.querySelector(".dashboard-nav-mobile");
+    if (mobile) {
+      mobile.classList.add("dashboard-nav");
+      mobile.classList.remove("dashboard-nav-mobile");
+    } else {
+      console.error("Element with class 'dashboard-nav' not found.");
+    }
+  };
+
   const displayNav = () => {
     const navigation = document.querySelector(".dashboard-nav");
-    const mobile = document.querySelector(".dashboard-nav-mobile");
 
     if (navigation) {
       navigation.classList.add("dashboard-nav-mobile");
       navigation.classList.remove("dashboard-nav");
-    } else if (mobile) {
-      mobile.classList.add("dashboard-nav");
-      mobile.classList.remove("dashboard-nav-mobile");
     } else {
       console.error("Element with class 'dashboard-nav' not found.");
     }
@@ -47,6 +53,7 @@ const SearchMeal: React.FC = () => {
     setIsHistory(false);
     setIsWeightTracker(false);
     setIsMealSearchForm(true);
+    removeNav();
   };
 
   const showHistory = (e: React.FormEvent) => {
@@ -54,6 +61,7 @@ const SearchMeal: React.FC = () => {
     setIsWeightTracker(false);
     setIsMealSearchForm(false);
     setIsHistory(true);
+    removeNav();
   };
 
   const showWeightTracker = (e: React.FormEvent) => {
@@ -61,6 +69,7 @@ const SearchMeal: React.FC = () => {
     setIsHistory(false);
     setIsMealSearchForm(false);
     setIsWeightTracker(true);
+    removeNav();
   };
 
   const logoutFrom = () => {

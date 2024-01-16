@@ -42,7 +42,6 @@ const MealSearchForm: React.FC = () => {
   const [itemAmount, setItemAmount] = useState<number>();
   const [itemUnit, setItemUnit] = useState<string>();
   const [itemSuggestions, setItemSuggestions] = useState<string[]>([]);
-  //   const [mealData, setMealData] = useState<NutritionalFacts>();
   const [isAddMealModel, setIsAddMealModel] = useState(false);
   const [nutritionalFacts, setNutritionalFacts] = useState<NutritionalFacts[]>(
     []
@@ -52,7 +51,7 @@ const MealSearchForm: React.FC = () => {
     const getItemSuggestions = async () => {
       try {
         const response = await axios.get<ItemSuggestion[]>(
-          "http://localhost:5004/item-suggestions/get/"
+          "/item-suggestions/get"
         );
         const suggestionItems = response.data.map(
           (suggestion) => suggestion.item
@@ -77,7 +76,7 @@ const MealSearchForm: React.FC = () => {
 
     try {
       const response = await axios.get<NutritionalFacts>(
-        `http://localhost:5004/nutritional-facts?item=${itemName}&amount=${itemAmount}&unit=${itemUnit}`
+        `/nutritional-facts?item=${itemName}&amount=${itemAmount}&unit=${itemUnit}`
       );
 
       const nutrition: NutritionalFacts = response.data;
@@ -95,7 +94,7 @@ const MealSearchForm: React.FC = () => {
     try {
       console.log("Adding item suggestion");
       const response = await axios.post(
-        `http://localhost:5004/item-suggestions/add/`,
+        `/item-suggestions/add/`,
         {
           item: itemName,
         }
