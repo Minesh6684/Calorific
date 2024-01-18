@@ -116,6 +116,11 @@
 }
 
 @media only screen and (max-width: 600px) {
+  .history-container {
+    margin-top: 30px;
+    margin-right: 15px;
+  }
+
   .history-meal-cards-container {
     flex-direction: column;
   }

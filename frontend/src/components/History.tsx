@@ -65,7 +65,7 @@ const History = () => {
       .toISOString()
       .split("T")[0];
     setMealDate(formattedSelectedDate);
-
+    console.log(history);
     setSelectedDateMeal(
       history?.filter(
         (meal) => meal.consumptionDateTime.split("T")[0] === selectedDate
@@ -77,6 +77,7 @@ const History = () => {
     <div className="history-container">
       <input
         type="date"
+        placeholder={mealDate}
         value={mealDate}
         onChange={(e) => filterMealByDate(e)}
         className="history-meal-filter"
