@@ -44,7 +44,7 @@ const SearchMeal: React.FC = () => {
       navigation.classList.add("dashboard-nav-mobile");
       navigation.classList.remove("dashboard-nav");
     } else {
-      console.error("Element with class 'dashboard-nav' not found.");
+      removeNav();
     }
   };
 

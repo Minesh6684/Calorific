@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 .mobile-navbar {
@@ -58,6 +59,7 @@
   flex-direction: row;
   align-items: center;
   gap: 10px;
+  color: #5855e3;
 }
 
 .display-section {
@@ -120,7 +122,7 @@
 
     align-items: center;
     height: 5vh;
-    padding: 15px;
+    padding: 25px 10px;
   }
 
   .dashboard-nav {
@@ -132,6 +134,7 @@
 
     background-color: #ffffff;
     overflow: hidden;
+    width: 100%;
   }
 
   .dashboard-nav-mobile {
@@ -142,6 +145,7 @@
 
     height: 95vh;
     background-color: #ffffff;
+    width: 100%;
   }
 
   .display-section {
