@@ -102,7 +102,22 @@ const SearchMeal: React.FC = () => {
           </button>
         </div>
         <div className="logout-section">
-          <button onClick={logoutFrom}>
+          <div className="logout-section-profile">
+            <img
+              className="fit-picture"
+              src="./calorific_logo.png"
+              alt="Grapefruit slice atop a pile of other slices"
+            />
+            <button className="set-goal-btn">Set Goals</button>
+            {/* // <input
+            //   type="file"
+            //   id="avatar"
+            //   name="avatar"
+            //   accept="image/png, image/jpeg"
+            //   hidden
+            // /> */}
+          </div>
+          <button onClick={logoutFrom} className="logout-button">
             <BiLogOut />
             <span>Logout</span>
           </button>
