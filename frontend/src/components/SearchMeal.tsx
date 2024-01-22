@@ -11,6 +11,9 @@ import { MdOutlineMonitorWeight } from "react-icons/md";
 import { GiMeal } from "react-icons/gi";
 import { TfiWrite } from "react-icons/tfi";
 import { BiLogOut } from "react-icons/bi";
+import { FiEdit2 } from "react-icons/fi";
+
+import calorific_logo from "./calorific_logo.png";
 
 const SearchMeal: React.FC = () => {
   const [isMealSearchForm, setIsMealSearchForm] = useState(true);
@@ -104,18 +107,36 @@ const SearchMeal: React.FC = () => {
         <div className="logout-section">
           <div className="logout-section-profile">
             <img
-              className="fit-picture"
-              src="./calorific_logo.png"
+              className="profile-photo"
+              src={calorific_logo}
               alt="Grapefruit slice atop a pile of other slices"
             />
-            <button className="set-goal-btn">Set Goals</button>
-            {/* // <input
-            //   type="file"
-            //   id="avatar"
-            //   name="avatar"
-            //   accept="image/png, image/jpeg"
-            //   hidden
-            // /> */}
+            <div className="logout-section-profile-nutritional-goals">
+              <p className="logout-section-profile-nutritional-goals-calories">
+                <span>
+                  Goal
+                  <button className="goal-edit-btn">
+                    <FiEdit2 />
+                  </button>
+                </span>
+                <span>1700 Calories</span>
+              </p>
+              <div className="logout-section-profile-nutritional-goals-macros">
+                <p>
+                  <span>Carbs</span>
+                  <span>213g</span>
+                </p>
+                <p>
+                  <span>Proteins</span>
+                  <span>125g</span>
+                </p>
+                <p>
+                  <span>Fats</span>
+                  <span>20g</span>
+                </p>
+              </div>
+            </div>
+            {/* <button className="set-goal-btn">Set Goals</button> */}
           </div>
           <button onClick={logoutFrom} className="logout-button">
             <BiLogOut />

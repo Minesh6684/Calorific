@@ -10,7 +10,7 @@
 }
 
 .dashboard {
-  /* position: relative; */
+  position: relative;
   display: grid;
   grid-template-columns: 2fr 8fr;
   grid-template-rows: 1fr;
@@ -86,7 +86,7 @@
   justify-content: space-between;
   align-items: center;
 
-  left: 50%; /* Center horizontally */
+  left: 50%;
   transform: translateX(-50%);
 
   background-color: #f8f8f8;
@@ -99,20 +99,66 @@
 
 .logout-section-profile {
   display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.logout-section-profile-nutritional-goals {
+  display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
+
+  font-family: "Chewy", cursive;
 }
 
-.set-goal-btn {
-  padding: 5px;
-  border-radius: 15px;
-  background-color: #5855e3;
-  color: #ffffff;
+.logout-section-profile-nutritional-goals-calories {
+  display: flex;
+  flex-direction: column;
+}
+
+.logout-section-profile-nutritional-goals-calories > span:nth-of-type(1) {
+  color: #373636;
+}
+
+.logout-section-profile-nutritional-goals-calories > span:nth-of-type(2) {
+  color: #5855e3;
+}
+
+.goal-edit-btn {
   border: none;
-  width: 50%;
+  background-color: transparent;
+  margin-left: 20px;
+  color: #5855e3;
 }
 
-.logout-section > button {
+.logout-section-profile-nutritional-goals-macros {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.logout-section-profile-nutritional-goals-macros > p {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logout-section-profile-nutritional-goals-macros > p > span:nth-of-type(1) {
+  color: #373636;
+}
+
+.logout-section-profile-nutritional-goals-macros > p > span:nth-of-type(2) {
+  color: #5855e3;
+}
+
+.profile-photo {
+  width: 50%;
+  transform: translateY(-30%);
+}
+
+.logout-button {
   border: none;
   border-radius: 25px;
   font-size: 20px;
@@ -129,7 +175,7 @@
   align-items: center;
 }
 
-.logout-section > button > span {
+.logout-button > span {
   font-weight: 100;
 }
 
