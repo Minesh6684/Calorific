@@ -184,14 +184,13 @@
   visibility: hidden;
   z-index: 1000;
   /* opacity: 0; */
-  height: 0px;
-  width: 0px;
-  top: 68vh;
-  left: 68vw;
-  transition: width 1s, height 1s, border-radius 1s, top 1s, left 1s, opacity 1s,
-    visibility 1s;
-  background-color: #ffffff;
-  border-radius: 50%; /* Initial border-radius set to 0 for a smooth transition */
+  height: 100%;
+  /* width: 0px; */
+  top: 100%;
+  /* left: 68vw; */
+  transition: top 1s, opacity 1s, visibility 1s;
+  background-color: #d4d3ff;
+  border-radius: 20px; /* Initial border-radius set to 0 for a smooth transition */
 
   display: flex;
   flex-direction: column;
@@ -203,14 +202,13 @@
   visibility: visible;
   /* opacity: 1; */
   height: 100%;
-  width: 100%;
+  /* width: 100%; */
   z-index: 1000;
   top: 0;
-  left: 0;
-  transition: width 1s, height 1s, border-radius 1s, top 1s, left 1s, opacity 1s,
-    visibility 1s;
-  background-color: #ffffff;
-  border-radius: 0; /* Border-radius set to 50% for a circular shape */
+  /* left: 0; */
+  transition: top 1s, opacity 1s, visibility 1s;
+  background-color: #d4d3ff;
+  border-radius: 20px; /* Border-radius set to 50% for a circular shape */
 
   display: flex;
   flex-direction: column;
@@ -223,9 +221,58 @@
 }
 
 .calorie-goal-form-show {
+  position: relative;
   visibility: visible;
   opacity: 1;
-  transition: opacity 1s linear 1s;
+  transition: opacity 1s linear 0.5s;
+
+  width: 95%;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  font-family: "Chewy", cursive;
+  /* color: #5855e3; */
+}
+
+.calorie-goal-form-show input {
+  width: 30%;
+  border: 1px solid #5855e3;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.calorie-goal-form-calories > p {
+  margin-bottom: 10px;
+}
+
+.calorie-goal-form-macros {
+  margin-top: 20px;
+}
+
+.calorie-goal-form-macros > div {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.calorie-goal-form-collapse-btn {
+  position: absolute;
+  top: -30px;
+  right: 0;
+}
+
+.calorie-goal-form-show > button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #5855e3;
+  color: #f8f8f8;
+  border: none;
+  border-radius: 10px;
+  width: 30%;
 }
 
 @keyframes goal {

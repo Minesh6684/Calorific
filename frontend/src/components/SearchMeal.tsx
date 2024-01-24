@@ -6,6 +6,7 @@ import MealSearchForm from "./MealSearchForm";
 import History from "../components/History";
 import WeightTracker from "../components/WeightTracker";
 import "../css/SearchMeals.css";
+import axios from "axios";
 
 import { MdOutlineMonitorWeight } from "react-icons/md";
 import { GiMeal } from "react-icons/gi";
@@ -20,6 +21,13 @@ const SearchMeal: React.FC = () => {
   const [isMealSearchForm, setIsMealSearchForm] = useState(true);
   const [isHistory, setIsHistory] = useState(false);
   const [isWeightTracker, setIsWeightTracker] = useState(false);
+
+  const [caloriGoal, setCalorieGoal] = useState({
+    calorie_goal: 1700,
+    carb_goal: 50,
+    protein_goal: 30,
+    fat_goal: 20,
+  });
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -107,6 +115,37 @@ const SearchMeal: React.FC = () => {
     goal_form?.classList.remove("calorie-goal-form-show");
   };
 
+  const handleCalorieGoalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setCalorieGoal((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const saveCalorieGoal = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const response = await axios.post(
+        "/calorie-goal/set",
+        caloriGoal,
+        config
+      );
+      setCalorieGoal((prevState) => ({
+        ...prevState,
+        ...response.data,
+      }));
+    } catch (error) {
+      console.error("Error saving calorie goal:", error);
+    }
+  };
+
   return (
     <div className="dashboard">
       <div className="mobile-navbar">
@@ -132,13 +171,51 @@ const SearchMeal: React.FC = () => {
           </button>
         </div>
         <div className="calorie-goal-form-container">
-          <form className="calorie-goal-form">
-            <RiCloseLine onClick={collapseGoalForm} />
-            <input type="number" placeholder="Calories" />
-            <p>Macros in percentage of total calories goal</p>
-            <input type="number" placeholder="Carbs" />
-            <input type="number" placeholder="Proteins" />
-            <input type="number" placeholder="Fats" />
+          <form onSubmit={saveCalorieGoal} className="calorie-goal-form">
+            <RiCloseLine
+              onClick={collapseGoalForm}
+              className="calorie-goal-form-collapse-btn"
+            />
+            <div className="calorie-goal-form-calories">
+              <p>
+                Enter your desired daily calorie, carbohydrate, protein, and fat
+                targets to tailor your wellness journey
+              </p>
+              <input
+                type="number"
+                name="calorie_goal"
+                value={caloriGoal.calorie_goal}
+                placeholder="Calories"
+                onChange={handleCalorieGoalChange}
+              />
+            </div>
+            <div className="calorie-goal-form-macros">
+              <p>Macros( in percentage ) of total calories goal</p>
+              <div>
+                <input
+                  type="number"
+                  name="carb_goal"
+                  value={caloriGoal.carb_goal}
+                  onChange={handleCalorieGoalChange}
+                  placeholder="Carbs %"
+                />
+                <input
+                  type="number"
+                  name="protein_goal"
+                  value={caloriGoal.protein_goal}
+                  onChange={handleCalorieGoalChange}
+                  placeholder="Proteins %"
+                />
+                <input
+                  type="number"
+                  name="fat_goal"
+                  value={caloriGoal.fat_goal}
+                  onChange={handleCalorieGoalChange}
+                  placeholder="Fats %"
+                />
+              </div>
+            </div>
+            <button type="submit">Set Goal</button>
           </form>
         </div>
         <div className="logout-section">
@@ -156,20 +233,20 @@ const SearchMeal: React.FC = () => {
                     <FiEdit2 />
                   </button>
                 </span>
-                <span>1700 Calories</span>
+                <span>{caloriGoal.calorie_goal}</span>
               </p>
               <div className="logout-section-profile-nutritional-goals-macros">
                 <p>
                   <span>Carbs</span>
-                  <span>213g</span>
+                  <span>{caloriGoal.carb_goal}</span>
                 </p>
                 <p>
                   <span>Proteins</span>
-                  <span>125g</span>
+                  <span>{caloriGoal.protein_goal}</span>
                 </p>
                 <p>
                   <span>Fats</span>
-                  <span>20g</span>
+                  <span>{caloriGoal.fat_goal}</span>
                 </p>
               </div>
             </div>
