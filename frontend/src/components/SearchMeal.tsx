@@ -12,6 +12,7 @@ import { GiMeal } from "react-icons/gi";
 import { TfiWrite } from "react-icons/tfi";
 import { BiLogOut } from "react-icons/bi";
 import { FiEdit2 } from "react-icons/fi";
+import { RiCloseLine } from "react-icons/ri";
 
 import calorific_logo from "./calorific_logo.png";
 
@@ -80,6 +81,32 @@ const SearchMeal: React.FC = () => {
     dispatch(logout());
   };
 
+  const showGoalForm = () => {
+    const goal_form_container = document.querySelector(
+      ".calorie-goal-form-container"
+    );
+    const goal_form = document.querySelector(".calorie-goal-form");
+
+    goal_form_container?.classList.add("calorie-goal-form-container-show");
+    goal_form_container?.classList.remove("calorie-goal-form-container");
+
+    goal_form?.classList.add("calorie-goal-form-show");
+    goal_form?.classList.remove("calorie-goal-form");
+  };
+
+  const collapseGoalForm = () => {
+    const goal_form_container = document.querySelector(
+      ".calorie-goal-form-container-show"
+    );
+    const goal_form = document.querySelector(".calorie-goal-form-show");
+
+    goal_form_container?.classList.add("calorie-goal-form-container");
+    goal_form_container?.classList.remove("calorie-goal-form-container-show");
+
+    goal_form?.classList.add("calorie-goal-form");
+    goal_form?.classList.remove("calorie-goal-form-show");
+  };
+
   return (
     <div className="dashboard">
       <div className="mobile-navbar">
@@ -104,6 +131,16 @@ const SearchMeal: React.FC = () => {
             <span>Weight Tracker</span>
           </button>
         </div>
+        <div className="calorie-goal-form-container">
+          <form className="calorie-goal-form">
+            <RiCloseLine onClick={collapseGoalForm} />
+            <input type="number" placeholder="Calories" />
+            <p>Macros in percentage of total calories goal</p>
+            <input type="number" placeholder="Carbs" />
+            <input type="number" placeholder="Proteins" />
+            <input type="number" placeholder="Fats" />
+          </form>
+        </div>
         <div className="logout-section">
           <div className="logout-section-profile">
             <img
@@ -115,7 +152,7 @@ const SearchMeal: React.FC = () => {
               <p className="logout-section-profile-nutritional-goals-calories">
                 <span>
                   Goal
-                  <button className="goal-edit-btn">
+                  <button className="goal-edit-btn" onClick={showGoalForm}>
                     <FiEdit2 />
                   </button>
                 </span>
@@ -136,7 +173,6 @@ const SearchMeal: React.FC = () => {
                 </p>
               </div>
             </div>
-            {/* <button className="set-goal-btn">Set Goals</button> */}
           </div>
           <button onClick={logoutFrom} className="logout-button">
             <BiLogOut />
