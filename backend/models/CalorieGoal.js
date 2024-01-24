@@ -6,6 +6,7 @@ const calorieGoalSchema = new mongoose.Schema({
   calorie_goal: { type: Number, required: true },
   carb_goal: { type: Number, required: true },
   protein_goal: { type: Number, required: true },
+  fat_goal: { type: Number, required: true },
 });
 
 // Create the Mongoose model

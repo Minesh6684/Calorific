@@ -93,12 +93,9 @@ const MealSearchForm: React.FC = () => {
 
     try {
       console.log("Adding item suggestion");
-      const response = await axios.post(
-        `/item-suggestions/add/`,
-        {
-          item: itemName,
-        }
-      );
+      const response = await axios.post(`/item-suggestions/add/`, {
+        item: itemName,
+      });
       console.log(response);
     } catch (error) {
       console.error("Error fetching nutritional facts:", error);
@@ -158,10 +155,11 @@ const MealSearchForm: React.FC = () => {
         <select
           id="foodUnit"
           name="unit"
+          value="gram"
           onChange={(e) => setItemUnit(e.target.value)}
           required
         >
-          <option value="" disabled selected hidden>
+          <option value="" disabled hidden>
             Unit
           </option>
           <option value="grams">gm</option>

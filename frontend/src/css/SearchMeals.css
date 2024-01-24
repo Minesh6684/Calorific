@@ -216,15 +216,19 @@
 }
 
 .calorie-goal-form {
+  display: none;
   visibility: hidden;
+  position: absolute;
   opacity: 0;
+  transition: visibility 1s linear 0.5s;
 }
 
 .calorie-goal-form-show {
-  position: relative;
+  display: block;
+  /* position: relative; */
   visibility: visible;
   opacity: 1;
-  transition: opacity 1s linear 0.5s;
+  transition: visibility 1s linear 0.5s;
 
   width: 95%;
   margin: 0 auto;
@@ -261,8 +265,8 @@
 
 .calorie-goal-form-collapse-btn {
   position: absolute;
-  top: -30px;
-  right: 0;
+  top: 20px;
+  right: 15px;
 }
 
 .calorie-goal-form-show > button {

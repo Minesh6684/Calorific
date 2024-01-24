@@ -23,10 +23,10 @@ const SearchMeal: React.FC = () => {
   const [isWeightTracker, setIsWeightTracker] = useState(false);
 
   const [caloriGoal, setCalorieGoal] = useState({
-    calorie_goal: 1700,
-    carb_goal: 50,
-    protein_goal: 30,
-    fat_goal: 20,
+    calorie_goal: "1700",
+    carb_goal: "50",
+    protein_goal: "30",
+    fat_goal: "20",
   });
 
   const navigate = useNavigate();
@@ -38,6 +38,24 @@ const SearchMeal: React.FC = () => {
       navigate("/");
     }
   }, [user, navigate]);
+
+  useEffect(() => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+        "Content-Type": "application/json",
+      },
+    };
+    const getCalorieGoal = async () => {
+      const calorieGoalResponse = await axios.get("/calorie-goal/get", config);
+      setCalorieGoal((prevState) => ({
+        ...prevState,
+        ...calorieGoalResponse.data[0],
+      }));
+      console.log(caloriGoal);
+    };
+    getCalorieGoal();
+  }, []);
 
   const removeNav = () => {
     const mobile = document.querySelector(".dashboard-nav-mobile");
@@ -121,6 +139,7 @@ const SearchMeal: React.FC = () => {
       ...prevState,
       [name]: value,
     }));
+    console.log(caloriGoal);
   };
 
   const saveCalorieGoal = async (e: React.FormEvent) => {
@@ -131,6 +150,7 @@ const SearchMeal: React.FC = () => {
         "Content-Type": "application/json",
       },
     };
+    console.log(caloriGoal);
     try {
       const response = await axios.post(
         "/calorie-goal/set",
@@ -238,15 +258,27 @@ const SearchMeal: React.FC = () => {
               <div className="logout-section-profile-nutritional-goals-macros">
                 <p>
                   <span>Carbs</span>
-                  <span>{caloriGoal.carb_goal}</span>
+                  <span>
+                    {((Number(caloriGoal.carb_goal) / 400) *
+                      Number(caloriGoal.calorie_goal)).toFixed()}
+                    g
+                  </span>
                 </p>
                 <p>
                   <span>Proteins</span>
-                  <span>{caloriGoal.protein_goal}</span>
+                  <span>
+                    {((Number(caloriGoal.protein_goal) / 400) *
+                      Number(caloriGoal.calorie_goal)).toFixed()}
+                    g
+                  </span>
                 </p>
                 <p>
                   <span>Fats</span>
-                  <span>{caloriGoal.fat_goal}</span>
+                  <span>
+                    {((Number(caloriGoal.fat_goal) / 900) *
+                      Number(caloriGoal.calorie_goal)).toFixed()}
+                    g
+                  </span>
                 </p>
               </div>
             </div>
