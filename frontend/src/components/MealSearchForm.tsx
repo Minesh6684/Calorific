@@ -155,7 +155,6 @@ const MealSearchForm: React.FC = () => {
         <select
           id="foodUnit"
           name="unit"
-          value="gram"
           onChange={(e) => setItemUnit(e.target.value)}
           required
         >

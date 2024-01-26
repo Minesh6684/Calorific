@@ -6,6 +6,12 @@ const AddMeal = async (req, res) => {
     const mealData = req.body;
     const mealDataToAdd = { user: req.user._id, ...mealData };
     console.log(mealDataToAdd);
+    // Convert consumptionDateTime to Date object in Toronto time
+    const torontoOptions = { timeZone: "America/Toronto" };
+    mealDataToAdd.consumptionDateTime = new Date(
+      mealDataToAdd.consumptionDateTime
+    ).toLocaleString("en-US", torontoOptions);
+
     const meal = await History.create(mealDataToAdd);
     res.status(200).json(meal);
   } catch (error) {

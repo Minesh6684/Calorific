@@ -3,6 +3,15 @@ import { useAppSelector } from "../app/store";
 import axios from "axios";
 import HistoryMealCard from "../components/HistoryMealCard";
 
+interface CalorieGoalProps {
+  caloriGoal: {
+    calorie_goal: string;
+    carb_goal: string;
+    protein_goal: string;
+    fat_goal: string;
+  };
+}
+
 interface Item {
   food_item: string;
   nutrition_facts: {
@@ -36,7 +45,7 @@ interface NutritionData {
   _id: string;
 }
 
-const History = () => {
+const History: React.FC<CalorieGoalProps> = ({ caloriGoal }) => {
   const user = useAppSelector((state) => state.Authentication.user);
   const [history, setHistory] = useState<NutritionData[]>();
   const [mealDate, setMealDate] = useState<string>();
@@ -99,19 +108,74 @@ const History = () => {
         className="history-meal-filter"
       />
       {mealDate && (
-        <div className="history-total-macros-by-date">
-          <p>
-            <span>Carbs</span>
-            <span>{totalCarbs.toFixed()} g</span>
-          </p>
-          <p>
-            <span>Proteins</span>
-            <span>{totalProteins.toFixed()} g</span>
-          </p>
-          <p>
-            <span>Fats</span>
-            <span>{totalFats.toFixed()} g</span>
-          </p>
+        <div className="history-total-macros-by-date-container">
+          <div className="history-total-macros-by-date-header">
+            <p style={{ visibility: "hidden" }}>....</p>
+            <p>Goal</p>
+            <p>Consumption</p>
+            <p>Remained</p>
+          </div>
+          <div className="history-total-macros-by-date">
+            <p>
+              <span>Carbs</span>
+              <span>
+                {(
+                  (Number(caloriGoal.carb_goal) / 400) *
+                  Number(caloriGoal.calorie_goal)
+                ).toFixed()}
+                g
+              </span>
+              <span>{totalCarbs.toFixed()}g</span>
+
+              <span>
+                {(
+                  (Number(caloriGoal.carb_goal) / 400) *
+                    Number(caloriGoal.calorie_goal) -
+                  totalCarbs
+                ).toFixed()}
+                g
+              </span>
+            </p>
+            <p>
+              <span>Proteins</span>
+              <span>
+                {(
+                  (Number(caloriGoal.protein_goal) / 400) *
+                  Number(caloriGoal.calorie_goal)
+                ).toFixed()}
+                g
+              </span>
+              <span>{totalProteins.toFixed()}g</span>
+              <span>
+                {(
+                  (Number(caloriGoal.protein_goal) / 400) *
+                    Number(caloriGoal.calorie_goal) -
+                  totalProteins
+                ).toFixed()}
+                g
+              </span>
+            </p>
+            <p>
+              <span>Fats</span>
+              <span>
+                {(
+                  (Number(caloriGoal.fat_goal) / 900) *
+                  Number(caloriGoal.calorie_goal)
+                ).toFixed()}
+                g
+              </span>
+              <span>{totalFats.toFixed()}g</span>
+
+              <span>
+                {(
+                  (Number(caloriGoal.fat_goal) / 900) *
+                    Number(caloriGoal.calorie_goal) -
+                  totalFats
+                ).toFixed()}
+                g
+              </span>
+            </p>
+          </div>
         </div>
       )}
       {mealDate && (

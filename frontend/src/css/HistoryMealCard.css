@@ -126,16 +126,34 @@
     align-items: center;
   }
 
-  .history-total-macros-by-date {
+  .history-total-macros-by-date-container {
+    background-color: #ffffff;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    align-items: center;
+    gap: 30px;
 
-    background-color: #ffffff;
-    padding: 25px;
+    font-family: sans-serif;
+    height: 13vh;
+    border-radius: 10px;
 
-    border-radius: 5px;
+    padding: 15px;
+    font-family: "Chewy", cursive;
+  }
+
+  .history-total-macros-by-date {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 60%;
+
+    font-family: "Chewy", cursive;
+  }
+
+  .history-total-macros-by-date-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .history-total-macros-by-date > p {
@@ -145,10 +163,10 @@
 
     justify-content: space-between;
     align-items: center;
-    height: 5vh;
+
   }
 
-  .history-total-macros-by-date > p > span:nth-of-type(2) {
-    font-weight: 600;
+  .history-total-macros-by-date > p > span:nth-of-type(1) {
+    font-family: "Chewy", cursive;
   }
 }

@@ -29,7 +29,11 @@ const historySchema = new mongoose.Schema({
       },
     },
   ],
-  consumptionDateTime: { type: Date, default: Date.now },
+  consumptionDateTime: {
+    type: Date,
+    required: true,
+    timeZone: "America/Toronto",
+  },
 });
 
 // Create the Mongoose model

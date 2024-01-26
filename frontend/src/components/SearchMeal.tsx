@@ -1,21 +1,26 @@
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../app/store";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../app/store";
 import { logout } from "../features/authentication/AuthenticationSlice";
 import MealSearchForm from "./MealSearchForm";
 import History from "../components/History";
 import WeightTracker from "../components/WeightTracker";
-import "../css/SearchMeals.css";
 import axios from "axios";
+import "../css/SearchMeals.css";
 
 import { MdOutlineMonitorWeight } from "react-icons/md";
 import { GiMeal } from "react-icons/gi";
-import { TfiWrite } from "react-icons/tfi";
-import { BiLogOut } from "react-icons/bi";
 import { FiEdit2 } from "react-icons/fi";
-import { RiCloseLine } from "react-icons/ri";
+import { BiLogOut } from "react-icons/bi";
+import { TfiWrite } from "react-icons/tfi";
 
 import calorific_logo from "./calorific_logo.png";
+import CalorieGoal from "./CalorieGoal";
+
+interface User {
+  name: string;
+  token: string;
+}
 
 const SearchMeal: React.FC = () => {
   const [isMealSearchForm, setIsMealSearchForm] = useState(true);
@@ -31,31 +36,15 @@ const SearchMeal: React.FC = () => {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.Authentication.user);
+  const user = useAppSelector((state) => state.Authentication.user) as
+    | User
+    | undefined;
 
   useEffect(() => {
     if (!user?.token) {
       navigate("/");
     }
   }, [user, navigate]);
-
-  useEffect(() => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${user?.token}`,
-        "Content-Type": "application/json",
-      },
-    };
-    const getCalorieGoal = async () => {
-      const calorieGoalResponse = await axios.get("/calorie-goal/get", config);
-      setCalorieGoal((prevState) => ({
-        ...prevState,
-        ...calorieGoalResponse.data[0],
-      }));
-      console.log(caloriGoal);
-    };
-    getCalorieGoal();
-  }, []);
 
   const removeNav = () => {
     const mobile = document.querySelector(".dashboard-nav-mobile");
@@ -120,18 +109,22 @@ const SearchMeal: React.FC = () => {
     goal_form?.classList.remove("calorie-goal-form");
   };
 
-  const collapseGoalForm = () => {
-    const goal_form_container = document.querySelector(
-      ".calorie-goal-form-container-show"
-    );
-    const goal_form = document.querySelector(".calorie-goal-form-show");
-
-    goal_form_container?.classList.add("calorie-goal-form-container");
-    goal_form_container?.classList.remove("calorie-goal-form-container-show");
-
-    goal_form?.classList.add("calorie-goal-form");
-    goal_form?.classList.remove("calorie-goal-form-show");
-  };
+  useEffect(() => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+        "Content-Type": "application/json",
+      },
+    };
+    const getCalorieGoal = async () => {
+      const calorieGoalResponse = await axios.get("/calorie-goal/get", config);
+      setCalorieGoal((prevState) => ({
+        ...prevState,
+        ...calorieGoalResponse.data[0],
+      }));
+    };
+    getCalorieGoal();
+  }, []);
 
   const handleCalorieGoalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -139,7 +132,6 @@ const SearchMeal: React.FC = () => {
       ...prevState,
       [name]: value,
     }));
-    console.log(caloriGoal);
   };
 
   const saveCalorieGoal = async (e: React.FormEvent) => {
@@ -150,7 +142,7 @@ const SearchMeal: React.FC = () => {
         "Content-Type": "application/json",
       },
     };
-    console.log(caloriGoal);
+
     try {
       const response = await axios.post(
         "/calorie-goal/set",
@@ -171,7 +163,13 @@ const SearchMeal: React.FC = () => {
       <div className="mobile-navbar">
         <p onClick={displayNav}>Calorific</p>
       </div>
+
       <div className="dashboard-nav">
+        <CalorieGoal
+          caloriGoal={caloriGoal}
+          saveCalorieGoal={saveCalorieGoal}
+          handleCalorieGoalChange={handleCalorieGoalChange}
+        />
         <div className="dashboard-greeting-section">
           <p>Welcome Back, {user?.name}</p>
           {/* <p>{user?.email÷}</p> */}
@@ -190,54 +188,7 @@ const SearchMeal: React.FC = () => {
             <span>Weight Tracker</span>
           </button>
         </div>
-        <div className="calorie-goal-form-container">
-          <form onSubmit={saveCalorieGoal} className="calorie-goal-form">
-            <RiCloseLine
-              onClick={collapseGoalForm}
-              className="calorie-goal-form-collapse-btn"
-            />
-            <div className="calorie-goal-form-calories">
-              <p>
-                Enter your desired daily calorie, carbohydrate, protein, and fat
-                targets to tailor your wellness journey
-              </p>
-              <input
-                type="number"
-                name="calorie_goal"
-                value={caloriGoal.calorie_goal}
-                placeholder="Calories"
-                onChange={handleCalorieGoalChange}
-              />
-            </div>
-            <div className="calorie-goal-form-macros">
-              <p>Macros( in percentage ) of total calories goal</p>
-              <div>
-                <input
-                  type="number"
-                  name="carb_goal"
-                  value={caloriGoal.carb_goal}
-                  onChange={handleCalorieGoalChange}
-                  placeholder="Carbs %"
-                />
-                <input
-                  type="number"
-                  name="protein_goal"
-                  value={caloriGoal.protein_goal}
-                  onChange={handleCalorieGoalChange}
-                  placeholder="Proteins %"
-                />
-                <input
-                  type="number"
-                  name="fat_goal"
-                  value={caloriGoal.fat_goal}
-                  onChange={handleCalorieGoalChange}
-                  placeholder="Fats %"
-                />
-              </div>
-            </div>
-            <button type="submit">Set Goal</button>
-          </form>
-        </div>
+
         <div className="logout-section">
           <div className="logout-section-profile">
             <img
@@ -259,24 +210,30 @@ const SearchMeal: React.FC = () => {
                 <p>
                   <span>Carbs</span>
                   <span>
-                    {((Number(caloriGoal.carb_goal) / 400) *
-                      Number(caloriGoal.calorie_goal)).toFixed()}
+                    {(
+                      (Number(caloriGoal.carb_goal) / 400) *
+                      Number(caloriGoal.calorie_goal)
+                    ).toFixed()}
                     g
                   </span>
                 </p>
                 <p>
                   <span>Proteins</span>
                   <span>
-                    {((Number(caloriGoal.protein_goal) / 400) *
-                      Number(caloriGoal.calorie_goal)).toFixed()}
+                    {(
+                      (Number(caloriGoal.protein_goal) / 400) *
+                      Number(caloriGoal.calorie_goal)
+                    ).toFixed()}
                     g
                   </span>
                 </p>
                 <p>
                   <span>Fats</span>
                   <span>
-                    {((Number(caloriGoal.fat_goal) / 900) *
-                      Number(caloriGoal.calorie_goal)).toFixed()}
+                    {(
+                      (Number(caloriGoal.fat_goal) / 900) *
+                      Number(caloriGoal.calorie_goal)
+                    ).toFixed()}
                     g
                   </span>
                 </p>
@@ -291,7 +248,7 @@ const SearchMeal: React.FC = () => {
       </div>
       <div className="display-section">
         {isMealSearchForm && <MealSearchForm />}
-        {isHistory && <History />}
+        {isHistory && <History caloriGoal={caloriGoal} />}
         {isWeightTracker && <WeightTracker />}
       </div>
     </div>
