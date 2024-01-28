@@ -11,7 +11,7 @@ const AddMeal = async (req, res) => {
     mealDataToAdd.consumptionDateTime = new Date(
       mealDataToAdd.consumptionDateTime
     ).toLocaleString("en-US", torontoOptions);
-
+    console.log(mealDataToAdd);
     const meal = await History.create(mealDataToAdd);
     res.status(200).json(meal);
   } catch (error) {

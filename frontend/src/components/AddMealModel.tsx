@@ -74,7 +74,6 @@ const AddMealModel: React.FC<AddMealModelProps> = ({
           fractionalSecondDigits: 3,
         }
       );
-
       // Assuming you want to add all meals in the nutritionalFacts array
       const response = await axios.post(
         "/history/add",
