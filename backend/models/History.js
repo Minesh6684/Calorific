@@ -31,10 +31,6 @@ const historySchema = new mongoose.Schema({
   consumptionDateTime: {
     type: Date,
     required: true,
-    timeZone: {
-      type: String,
-      default: "America/Toronto",
-    },
   },
 });
 

@@ -100,7 +100,13 @@ const HistoryMealCard: React.FC<HistoryMealCardProps> = ({ meal }) => {
       </div>
       <p className="history-consumption-date">
         <p className="history-consumption-date">
-          Consumed on: {meal.consumptionDateTime.slice(11, 16)}
+          Consumed on:{" "}
+          {new Date(meal.consumptionDateTime).toLocaleString("en-US", {
+            timeZone: "America/Toronto",
+            hour12: true,
+            hour: "numeric",
+            minute: "numeric",
+          })}
         </p>
       </p>
     </div>
