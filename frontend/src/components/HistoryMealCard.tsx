@@ -50,6 +50,8 @@ const HistoryMealCard: React.FC<HistoryMealCardProps> = ({ meal }) => {
     0
   );
 
+  console.log(meal.consumptionDateTime);
+
   const total_protein = Object.values(meal.items).reduce(
     (total, item) =>
       total + item.nutrition_facts.nutrients.macronutrients.protein,
@@ -98,7 +100,10 @@ const HistoryMealCard: React.FC<HistoryMealCardProps> = ({ meal }) => {
       </div>
       <p className="history-consumption-date">
         <p className="history-consumption-date">
-          Consumed on: {meal.consumptionDateTime.slice(11, 16)}
+          Consumed on:{" "}
+          {Number(meal.consumptionDateTime.slice(11, 13)) - 5 < 9 ? 0 : ""}
+          {Number(meal.consumptionDateTime.slice(11, 13)) - 5}:
+          {meal.consumptionDateTime.slice(14, 16)}
         </p>
       </p>
     </div>

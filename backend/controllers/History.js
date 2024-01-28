@@ -5,7 +5,7 @@ const AddMeal = async (req, res) => {
   try {
     const mealData = req.body;
     const mealDataToAdd = { user: req.user._id, ...mealData };
-    console.log(mealDataToAdd);
+
     // Convert consumptionDateTime to Date object in Toronto time
     const torontoOptions = { timeZone: "America/Toronto" };
     mealDataToAdd.consumptionDateTime = new Date(

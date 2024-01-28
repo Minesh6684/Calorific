@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 
-// Define the schema
 const historySchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, // Assuming there's a User model
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   items: [
     {
       food_item: { type: String, required: true },
@@ -32,11 +31,13 @@ const historySchema = new mongoose.Schema({
   consumptionDateTime: {
     type: Date,
     required: true,
-    timeZone: "America/Toronto",
+    timeZone: {
+      type: String,
+      default: "America/Toronto",
+    },
   },
 });
 
-// Create the Mongoose model
 const History = mongoose.model("History", historySchema);
 
 module.exports = History;

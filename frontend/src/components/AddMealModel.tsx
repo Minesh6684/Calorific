@@ -57,18 +57,30 @@ const AddMealModel: React.FC<AddMealModelProps> = ({
       console.log("Adding meal to history");
 
       // Convert mealDate and mealTime to Toronto time
-      const torontoOptions = { timeZone: "America/Toronto" };
-      const torontoDateTime = new Date(
-        `${mealDate} ${mealTime}`
-      ).toLocaleString("en-US", torontoOptions);
-      console.log(torontoDateTime)
+      const torontoDateTimeString = `${mealDate} ${mealTime}`;
+      const torontoDateTime = new Date(torontoDateTimeString);
+
+      // Use toLocaleString with timeZone option to get the string in the desired time zone
+      const torontoDateTimeStringFormatted = torontoDateTime.toLocaleString(
+        "en-US",
+        {
+          timeZone: "America/Toronto",
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          fractionalSecondDigits: 3,
+        }
+      );
 
       // Assuming you want to add all meals in the nutritionalFacts array
       const response = await axios.post(
         "/history/add",
         {
           items: nutritionalFacts,
-          consumptionDateTime: torontoDateTime,
+          consumptionDateTime: torontoDateTimeStringFormatted,
         },
         config
       );
