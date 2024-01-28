@@ -100,7 +100,7 @@ const HistoryMealCard: React.FC<HistoryMealCardProps> = ({ meal }) => {
       </div>
       <p className="history-consumption-date">
         <p className="history-consumption-date">
-          Consumed on: {meal.consumptionDateTime}
+          Consumed on: {meal.consumptionDateTime.slice(11, 16)}
         </p>
       </p>
     </div>
