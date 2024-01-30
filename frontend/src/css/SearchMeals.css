@@ -318,7 +318,7 @@
   .dashboard-nav-mobile {
     position: absolute;
     left: 0;
-    z-index: 3;
+    z-index: 4;
     transition: left 1s;
 
     height: 95vh;

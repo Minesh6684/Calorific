@@ -181,7 +181,7 @@ const History: React.FC<CalorieGoalProps> = ({ caloriGoal }) => {
       {mealDate && (
         <div className="history-meal-cards-container">
           {selectedDateMeal?.map((meal) => (
-            <HistoryMealCard meal={meal} />
+            <HistoryMealCard key={meal._id} meal={meal} />
           ))}
         </div>
       )}

@@ -26,12 +26,81 @@
   overflow: scroll;
 }
 
+.history-meal-card-container {
+  position: relative;
+}
+
 .history-meal-card {
   font-family: sans-serif;
   background-color: #ffffff;
   border-radius: 10px;
-  width: 300px;
   border: 1px solid rgb(186, 184, 184);
+
+  
+  backface-visibility: hidden;
+  transition: transform 0.5s;
+}
+
+.history-meal-card.flip {
+  transform: rotateY(180deg);
+  transition: transform 1s;
+}
+
+.history-meal-card-back {
+  transition: transform 1s;
+  position: absolute;
+  width: inherit;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.history-meal-card-back table {
+  border-radius: 10px;
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.history-meal-card-back th,
+.history-meal-card-back td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.history-meal-card-back thead {
+  background-color: #5855e3;
+  color: #fff;
+  font-family: "Chewy", cursive;
+}
+
+
+.history-meal-card-back tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.history-meal-card-back tbody tr:hover {
+  background-color: #e0e0e0;
+}
+
+.history-meal-card-back.flip {
+  position: absolute;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+
+  transition: transform 1s;
+}
+
+.history-meal-card-back > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.history-meal-card-back > div > p {
+  width: 15%;
 }
 
 .history-meal-details {
@@ -115,6 +184,66 @@
   padding: 10px;
 }
 
+.history-total-macros-by-date-container {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 30px;
+
+  font-family: sans-serif;
+  height: 15vh;
+  border-radius: 10px;
+
+  padding: 15px;
+  font-family: "Chewy", cursive;
+}
+
+.history-total-macros-by-date {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 60%;
+
+  font-family: "Chewy", cursive;
+}
+
+.history-total-macros-by-date-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.history-total-macros-by-date > p {
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
+  align-items: center;
+}
+
+.history-total-macros-by-date > p > span:nth-of-type(1) {
+  font-family: "Chewy", cursive;
+}
+
+.history-card-flip-icon {
+  z-index: 3;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 20px;
+  color: #5855e3;
+}
+
+.history-card-flip-icon.flip {
+  color: #ffffff;
+}
+
+.history-card-flip-icon:hover {
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 600px) {
   .history-container {
     width: 95%;
@@ -124,6 +253,12 @@
   .history-meal-cards-container {
     flex-direction: column;
     align-items: center;
+  }
+
+  .history-meal-card-container {
+    width: 100%;
+    /* height: 500px;
+    overflow-y: visible; */
   }
 
   .history-total-macros-by-date-container {
@@ -163,7 +298,6 @@
 
     justify-content: space-between;
     align-items: center;
-
   }
 
   .history-total-macros-by-date > p > span:nth-of-type(1) {
