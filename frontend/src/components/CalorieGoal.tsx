@@ -11,9 +11,11 @@ interface CalorieGoalProps {
   handleCalorieGoalChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const CalorieGoal: React.FC<CalorieGoalProps> = ({ caloriGoal, saveCalorieGoal, handleCalorieGoalChange }) => {
- 
-
+const CalorieGoal: React.FC<CalorieGoalProps> = ({
+  caloriGoal,
+  saveCalorieGoal,
+  handleCalorieGoalChange,
+}) => {
   const collapseGoalForm = () => {
     const goal_form_container = document.querySelector(
       ".calorie-goal-form-container-show"

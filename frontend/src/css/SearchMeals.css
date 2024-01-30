@@ -12,7 +12,7 @@
 .dashboard {
   position: relative;
   display: grid;
-  grid-template-columns: 2fr 8fr;
+  grid-template-columns: 3fr 8fr;
   grid-template-rows: 1fr;
 }
 
@@ -74,7 +74,7 @@
 
   background-color: #f8f8f8;
 
-  overflow: scroll;
+  overflow-x: scroll;
 }
 
 .logout-section {
@@ -137,6 +137,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 10px;
+  width: 100%;
 }
 
 .logout-section-profile-nutritional-goals-macros > p {
@@ -181,14 +182,14 @@
 
 .calorie-goal-form-container {
   position: absolute;
+  opacity: 0;
   visibility: hidden;
   z-index: 1000;
-  /* opacity: 0; */
-  height: 100%;
-  /* width: 0px; */
+  height: 10px; /* Set a value larger than the expected content height */
+  overflow: hidden;
   top: 100%;
-  /* left: 68vw; */
-  transition: top 1s, opacity 1s, visibility 1s;
+  transition: top 1s, opacity 1s ease 1s, visibility 1s ease,
+    height 0.1s ease 1s, max-height 0.1s ease 1s;
   background-color: #d4d3ff;
   border-radius: 20px; /* Initial border-radius set to 0 for a smooth transition */
 
@@ -197,16 +198,18 @@
   justify-content: center;
 }
 
+.calorie-goal-form-container.hidden {
+  display: none;
+}
+
 .calorie-goal-form-container-show {
   position: absolute;
+  opacity: 1;
   visibility: visible;
-  /* opacity: 1; */
   height: 100vh;
-  /* width: 100%; */
   z-index: 1000;
   top: 0;
-  /* left: 0; */
-  transition: top 1s, opacity 1s, visibility 1s;
+  transition: top 1s, opacity 1s ease, visibility 1s ease;
   background-color: #d4d3ff;
   border-radius: 20px; /* Border-radius set to 50% for a circular shape */
 
@@ -216,19 +219,22 @@
 }
 
 .calorie-goal-form {
-  display: none;
   visibility: hidden;
-  position: absolute;
   opacity: 0;
-  transition: visibility 1s linear 0.5s;
+  width: 95%;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  font-family: "Chewy", cursive;
 }
 
 .calorie-goal-form-show {
-  display: block;
-  /* position: relative; */
   visibility: visible;
   opacity: 1;
-  transition: visibility 1s linear 0.5s;
+  transition: visibility 1s ease 0.5s, opacity 1s ease 0.5s;
 
   width: 95%;
   margin: 0 auto;
@@ -238,11 +244,10 @@
   gap: 5px;
 
   font-family: "Chewy", cursive;
-  /* height: 100vh; */
-  /* color: #5855e3; */
 }
 
-.calorie-goal-form-show input {
+.calorie-goal-form-show input,
+.calorie-goal-form input {
   width: 30%;
   border: 1px solid #5855e3;
   padding: 5px;
@@ -270,7 +275,8 @@
   right: 15px;
 }
 
-.calorie-goal-form-show > button {
+.calorie-goal-form-show > button,
+.calorie-goal-form > button {
   margin-top: 20px;
   padding: 10px;
   background-color: #5855e3;
@@ -278,9 +284,6 @@
   border: none;
   border-radius: 10px;
   width: 30%;
-}
-
-@keyframes goal {
 }
 
 @media only screen and (max-width: 600px) {
@@ -326,5 +329,6 @@
   .display-section {
     padding: 0px;
     height: 95vh;
+    overflow-y: scroll;
   }
 }

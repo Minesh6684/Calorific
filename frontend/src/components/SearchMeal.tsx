@@ -101,12 +101,16 @@ const SearchMeal: React.FC = () => {
       ".calorie-goal-form-container"
     );
     const goal_form = document.querySelector(".calorie-goal-form");
-
+    // console.log(goal_form_container?.classList);
     goal_form_container?.classList.add("calorie-goal-form-container-show");
     goal_form_container?.classList.remove("calorie-goal-form-container");
 
     goal_form?.classList.add("calorie-goal-form-show");
     goal_form?.classList.remove("calorie-goal-form");
+
+    // setTimeout(() => {
+    //   goal_form_container?.classList.remove("hidden");
+    // }, 1000);
   };
 
   useEffect(() => {
