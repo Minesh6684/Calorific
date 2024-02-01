@@ -5,6 +5,9 @@ import { login } from "../features/authentication/AuthenticationSlice";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
+import "../css/Login.css";
+import calorific_logo from "../components/calorific_logo.png";
+
 interface UserDataFromServer {
   name: string;
   token: string;
@@ -50,31 +53,36 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
-        <label>
-          Email:
+    <div className="login-page">
+      <div className="register-page-logo-organisation">
+        <img src={calorific_logo} alt="" className="calorific_logo" />
+        <p>Calorific</p>
+      </div>
+      <h2>Welcome Back !</h2>
+      <p>Enter to track your calories and much more!</p>
+      <form onSubmit={handleLogin} className="login-form">
+        <div>
+          <label>Email:</label>
           <input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your email"
           />
-        </label>
-        <br />
-        <label>
-          Password:
+        </div>
+        <div>
+          <label>Password:</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your password"
           />
-        </label>
-        <br />
-        <button type="submit">Login</button>
+        </div>
+        <button type="submit">Log In</button>
       </form>
-      <p>
-        Don't have an account? <Link to="/register">Register</Link>
+      <p className="register-link">
+        Don't have an account? <Link to="/register">Register here</Link>
       </p>
     </div>
   );
