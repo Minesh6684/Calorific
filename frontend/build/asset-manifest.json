@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.8a79e0c4.css",
+    "main.css": "/static/css/main.41d2ba89.css",
     "main.js": "/static/js/main.57ebfd19.js",
     "static/media/Calorific_Banner.png": "/static/media/Calorific_Banner.b7940d2070e304ec0e80.png",
     "static/media/calorific_logo.png": "/static/media/calorific_logo.7e50d7313bc1ea4cdd4e.png",
     "index.html": "/index.html",
-    "main.8a79e0c4.css.map": "/static/css/main.8a79e0c4.css.map",
+    "main.41d2ba89.css.map": "/static/css/main.41d2ba89.css.map",
     "main.57ebfd19.js.map": "/static/js/main.57ebfd19.js.map"
   },
   "entrypoints": [
-    "static/css/main.8a79e0c4.css",
+    "static/css/main.41d2ba89.css",
     "static/js/main.57ebfd19.js"
   ]
 }
